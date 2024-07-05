@@ -1,0 +1,54 @@
+1.locals
+
+app.post("/submit", (req, res) => {
+  const heading = `There are ${
+    req.body.fName.length + req.body.lName.length
+  } letters in Your name.`;
+
+  res.render(__dirname + "/views/index.ejs", { heading: heading });
+});
+
+
+when we want to check if heading is exist before rendering we must use locals.heading in ejs template.
+ <% if (locals.heading) { %>
+    <h1><%= locals.heading %></h1>
+    <% } %>
+
+other wise if we didn't pass anything the program will crash
+
+crash example -: 
+
+res.render(__dirname + "/views/index.ejs");
+
+<% if (heading) { %>
+    <h1><%= locals.heading %></h1>
+    <% } %>
+
+do not crash example -:
+
+res.render(__dirname + "/views/index.ejs");
+
+<% if (locals.heading) { %>
+    <h1><%= locals.heading %></h1>
+    <% } %>
+
+when we add locals.heding if condition is work as expected otherwise not.
+
+
+2.app.use(express.static(__dirname + "/public"))
+
+- When we do severside rendring we must put all the static files such as css files,images
+  inside one folder(genarally we name it 'public') and we must tell it to express using 
+  app.use()
+
+- so when we including these staic files insdide our ejs files we must use the relative path
+  from the public folder.
+  ex-: <link rel="stylesheet" href="/styles/layout.css">
+       <link rel="stylesheet" href="/styles/content.css">
+
+
+3.JSON
+- when we convert javaScript object to it's string version it called json.
+
+convert javaScript object to => json / to do this we use json.stringify()
+convert json to jsObject we use => json.parse()
